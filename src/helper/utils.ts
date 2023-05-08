@@ -1,7 +1,6 @@
 
 import { ec as EC, eddsa as EdDSA } from 'elliptic';
 import * as base58 from 'bs58';
-// import { normalizeData, normalizeRequestContent } from '@/utils';
 import base64url from 'base64url';
 import keccak256 from 'keccak256';
 const eddsa = new EdDSA('ed25519');

@@ -1,12 +1,7 @@
 import { API_ENDPOINT } from './constants';
-import { Network } from '@near-wallet-selector/core';
-import axios, { AxiosResponse } from 'axios';
+import axios from 'axios';
 import BN from 'bn.js';
-import { ec as EC, eddsa as EdDSA } from 'elliptic';
-import { sha256 } from 'js-sha256';
-import { keyStores, providers, transactions, utils, KeyPair, Contract, Account, Connection, Signer } from 'near-api-js';
-import { KeyStore } from 'near-api-js/lib/key_stores';
-import { AccountView, CodeResult, Provider } from 'near-api-js/lib/providers/provider';
+import {  providers } from 'near-api-js';
 import { Wallet } from 'near-wallet-selector/lib/esm/wallets/Wallet';
 import { getOrderlySignature, getParamsSignature } from './utils';
 
@@ -49,7 +44,7 @@ export class LocalAccount {
                     },
                 }
             );
-            
+
             let res;
             if (data.data.success) {
                 data.status = 200;
