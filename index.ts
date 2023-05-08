@@ -22,7 +22,7 @@ app.use(express.json());
 app.use("/",route);
 
 let server = httpServer.listen(3010, function () {
-    const port = 3010;
+    const port = process.env.PORT;
     console.log(`⚡️[server]: Server is running at http://localhost:${port}`);
 });
 
