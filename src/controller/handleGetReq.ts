@@ -46,6 +46,7 @@ export async function handleGetReq(req: Request, res: Response) {
         const localAccount = new LocalAccount(accountId, orderlyPrivateKey, orderlyPublicKey, tradingPublicKey, tradingSecretKey);
         try {
             const data = await localAccount.createGetRequest("GET", request);
+            console.log("NO_OF_USER", data.data.length)
             res.status(data.statusCode).send({ status: data.status, data: data.data });
         }
         catch (error: any) {
