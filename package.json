@@ -1,5 +1,5 @@
 {
-  "name": "broker-API",
+  "name": "broker_api",
   "version": "1.0.0",
   "main": "index.js",
   "repository": "https://github.com/ze-xe/broker-API.git",
@@ -8,6 +8,7 @@
   "scripts": {
     "build": "npx tsc",
     "start": "node dist/index.js",
+    "prod":"npm run build && npm run start",
     "dev": "ts-node index.ts"
   },
   "dependencies": {
