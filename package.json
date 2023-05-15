@@ -8,7 +8,7 @@
   "scripts": {
     "build": "npx tsc",
     "start": "node dist/index.js",
-    "prod":"npm run build && npm run start",
+    "prod": "npm run build && npm run start",
     "dev": "ts-node index.ts"
   },
   "dependencies": {
@@ -24,8 +24,7 @@
     "helmet": "^6.1.5",
     "js-sha256": "^0.9.0",
     "keccak256": "^1.0.6",
-    "near-api-js": "^1.1.0",
-    "near-wallet-selector": "^2.1.0"
+    "near-api-js": "^1.1.0"
   },
   "devDependencies": {
     "@types/bn.js": "^5.1.1",
