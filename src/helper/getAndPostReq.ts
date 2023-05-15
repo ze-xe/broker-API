@@ -2,9 +2,8 @@ import { API_ENDPOINT } from './constants';
 import axios from 'axios';
 import BN from 'bn.js';
 import {  providers } from 'near-api-js';
-import { Wallet } from 'near-wallet-selector/lib/esm/wallets/Wallet';
+import type { Wallet } from '@near-wallet-selector/core/lib/wallet/wallet.types';
 import { getOrderlySignature, getParamsSignature } from './utils';
-
 
 
 export class LocalAccount {
