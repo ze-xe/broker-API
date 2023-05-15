@@ -1,13 +1,13 @@
 import { ERROR, dateRegex } from "../helper/constants";
 import { LocalAccount } from "../helper/getAndPostReq";
-
+import { Request, Response } from 'express';
 
 
 
 
 require("dotenv").config();
 
-export async function handleGetReq(req: any, res: any) {
+export async function handleGetReq(req: Request, res: Response) {
     try {
 
         const orderlyPublicKey = process.env.ORDERLY_PUBLIC_KEY;
@@ -31,12 +31,12 @@ export async function handleGetReq(req: any, res: any) {
         else if (!accountId) {
             return res.status(400).send({ status: false, message: ERROR.ACCOUNT_ID_NOT_FOUND });
         }
-        const { start_date, end_date, broker_id } = req.query;
+        const { start_date , end_date, broker_id } = req.query;
 
         if (!start_date || !end_date) {
             return res.status(400).send({ status: false, message: ERROR.DATE_NOT_FOUND });
         }
-        else if (!dateRegex.test(start_date) || !dateRegex.test(end_date)) {
+        else if (!dateRegex.test(start_date as string) || !dateRegex.test(end_date as string)) {
             return res.status(400).send({ status: false, message: ERROR.DATE_FORMAT_NOT_VALID });
         }
         else if (!broker_id) {

@@ -1,13 +1,13 @@
 import { ERROR } from "../helper/constants";
 import { LocalAccount } from "../helper/getAndPostReq";
-
+import { Request, Response } from 'express';
 
 
 
 
 require("dotenv").config();
 
-export async function handlePostReq(req: any, res: any) {
+export async function handlePostReq(req: Request, res: Response) {
     try {
 
         const orderlyPublicKey = process.env.ORDERLY_PUBLIC_KEY;

@@ -51,7 +51,7 @@ export const ORDER_DESCRIPTIONS: any = {
     '4': 'The order will be executed with any maker trades at the time of placement, then it will be cancelled without any execution',
 }
 
-export const ERROR = {
+export const ERROR: { [key: string]: string } = {
     ORDERLY_PUBLIC_KEY_NOT_FOUND: "ORDERLY_PUBLIC_KEY_NOT_SET_IN_.ENV",
     ORDERLY_PRIVATE_KEY_NOT_FOUND: "ORDERLY_PRIVATE_KEY_NOT_SET_IN_.ENV",
     TRADING_PUBLIC_KEY_NOT_FOUND: "TRADING_PUBLIC_KEY_NOT_SET_IN_.ENV",

@@ -19,10 +19,10 @@ app.use(cors({
 app.use(helmet());
 app.use(express.json());
 
-app.use("/",route);
+app.use("/", route);
+const port = process.env.PORT;
 
-let server = httpServer.listen(3010, function () {
-    const port = process.env.PORT;
+let server = httpServer.listen(port ?? 3010, function () {
     console.log(`⚡️[server]: Server is running at http://localhost:${port}`);
 });
 
