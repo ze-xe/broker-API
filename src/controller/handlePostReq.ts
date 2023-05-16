@@ -34,7 +34,7 @@ export async function handlePostReq(req: Request, res: Response) {
 
         const bodyData = req.body;
 
-        const { broker_id, maker_fee_rate, taker_fee_rate } = req.body;
+        const { broker_id, maker_fee_rate, taker_fee_rate, orderly_public_key } = req.body;
 
         if (!broker_id) {
             return res.status(400).send({ status: false, message: ERROR.BROKER_ID_NOT_FOUND });
@@ -42,6 +42,10 @@ export async function handlePostReq(req: Request, res: Response) {
 
         else if (!maker_fee_rate && !taker_fee_rate) {
             return res.status(400).send({ status: false, message: ERROR.FEE_RATE_REQUIRED });
+        }
+
+        else if (!orderly_public_key || orderly_public_key !== orderlyPublicKey) {
+            return res.status(400).send({ status: false, message: ERROR.ORDERLY_PUBLIC_KEY_NOT_VALID });
         }
 
         const request = `/v1/broker/fee_rate`;

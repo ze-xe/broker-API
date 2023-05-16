@@ -3,7 +3,8 @@ import cors from "cors";
 import helmet from "helmet";
 import { createServer } from "http";
 import compression from "compression";
-import route from "./src/routes/apiRoute"
+import route from "./src/routes/apiRoute";
+import morgan from "morgan";
 const app = express();
 
 const httpServer = createServer(app);
@@ -18,7 +19,7 @@ app.use(cors({
 
 app.use(helmet());
 app.use(express.json());
-
+app.use(morgan("tiny"));
 app.use("/", route);
 const port = process.env.PORT;
 

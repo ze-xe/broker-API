@@ -60,7 +60,8 @@ export const ERROR: { [key: string]: string } = {
     BROKER_ID_NOT_FOUND: "broker_id is required",
     DATE_NOT_FOUND: "star_date or end_date undefined",
     DATE_FORMAT_NOT_VALID: "NOT_A_VALID_DATE_FORMAT, YYYY-MM-DD REQUIRED",
-    FEE_RATE_REQUIRED: "either maker_fee_rate or taker_fee_rate required"
+    FEE_RATE_REQUIRED: "either maker_fee_rate or taker_fee_rate required",
+    ORDERLY_PUBLIC_KEY_NOT_VALID: "orderlyPublicKey not valid"
 }
 
 export const dateRegex = /^(?:19|20|21|22|23|24|25|26|27|28|29|30)\d\d-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1\d|2[0-8])|(?:0[13-9]|1[0-2])-(?:29|30)|(?:0[13578]|1[02])-31)$/;
