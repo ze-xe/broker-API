@@ -45,15 +45,18 @@ export class LocalAccount {
             );
 
             let res;
+            let success;
             if (data.data.success) {
                 data.status = 200;
                 res = data.data.data;
+                success= true;
             }
             else {
                 data.status = 400;
                 res = data.data;
+                success = false;
             }
-            return { status: true, data: res, statusCode: data.status };
+            return { status: success, data: res, statusCode: data.status };
         }
         catch (error: any) {
             console.log("Error @ createGetRequest", error.response.data, __filename);

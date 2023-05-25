@@ -1,8 +1,11 @@
 import { ERROR, dateRegex } from "../helper/constants";
 import { LocalAccount } from "../helper/getAndPostReq";
 import { Request, Response } from 'express';
+import NodeCache from 'node-cache'
 
 
+
+const getCache = new NodeCache({ stdTTL: 60, checkperiod: 60 });
 
 
 require("dotenv").config();
@@ -31,7 +34,7 @@ export async function handleGetReq(req: Request, res: Response) {
         else if (!accountId) {
             return res.status(400).send({ status: false, message: ERROR.ACCOUNT_ID_NOT_FOUND });
         }
-        const { start_date , end_date, broker_id } = req.query;
+        const { start_date, end_date, broker_id } = req.query;
 
         if (!start_date || !end_date) {
             return res.status(400).send({ status: false, message: ERROR.DATE_NOT_FOUND });
@@ -44,20 +47,38 @@ export async function handleGetReq(req: Request, res: Response) {
         }
         const request = `/v1/volume/broker/daily?start_date=${start_date}&end_date=${end_date}&broker_id=${broker_id}`;
         const localAccount = new LocalAccount(accountId, orderlyPrivateKey, orderlyPublicKey, tradingPublicKey, tradingSecretKey);
-        try {
-            const data = await localAccount.createGetRequest("GET", request);
-           
+
+        // caching 
+        if (getCache.has("getKey")) {
+            const data: any = getCache.get("getKey");
             const set = new Set()
             data.data.forEach((e: any) => {
                 set.add(e.account_id);
             });
-            
             console.log("NO_OF_USER", Array.from(set).length);
+            return res.status(200).send(data);
+        }
+
+        try {
+            const data = await localAccount.createGetRequest("GET", request);
+
+            if (data.status) {
+                const set = new Set()
+                if (data.status)
+                    data.data.forEach((e: any) => {
+                        set.add(e.account_id);
+                    });
+                console.log("NO_OF_USER", Array.from(set).length);
+                
+                // setting cache
+                getCache.set("getKey", { status: data.status, data: data.data }, 120);
+            };
+
             return res.status(data.statusCode).send({ status: data.status, data: data.data });
         }
         catch (error: any) {
             console.log(error.message)
-            return res.status(400).send({ status: false, message: error.message }); 
+            return res.status(400).send({ status: false, message: error.message });
         }
     }
     catch (error: any) {
