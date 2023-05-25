@@ -49,13 +49,13 @@ export async function handleGetReq(req: Request, res: Response) {
         const localAccount = new LocalAccount(accountId, orderlyPrivateKey, orderlyPublicKey, tradingPublicKey, tradingSecretKey);
 
         // caching 
-        if (getCache.has("getKey")) {
-            const data: any = getCache.get("getKey");
+        if (getCache.has(`${start_date}-${end_date}`)) {
+            const data: any = getCache.get(`${start_date}-${end_date}`);
             const set = new Set()
             data.data.forEach((e: any) => {
                 set.add(e.account_id);
             });
-            console.log("NO_OF_USER", Array.from(set).length);
+            console.log("NO_OF_USER - cache", Array.from(set).length);
             return res.status(200).send(data);
         }
 
@@ -71,7 +71,7 @@ export async function handleGetReq(req: Request, res: Response) {
                 console.log("NO_OF_USER", Array.from(set).length);
                 
                 // setting cache
-                getCache.set("getKey", { status: data.status, data: data.data }, 120);
+                getCache.set(`${start_date}-${end_date}`, { status: data.status, data: data.data }, 120);
             };
 
             return res.status(data.statusCode).send({ status: data.status, data: data.data });
