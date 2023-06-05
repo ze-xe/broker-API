@@ -71,7 +71,7 @@ export async function handleGetReq(req: Request, res: Response) {
                 console.log("NO_OF_USER", Array.from(set).length);
                 
                 // setting cache
-                getCache.set(`${start_date}-${end_date}`, { status: data.status, data: data.data }, 120);
+                getCache.set(`${start_date}-${end_date}`, { status: data.status, data: data.data }, 600);
             };
 
             return res.status(data.statusCode).send({ status: data.status, data: data.data });
