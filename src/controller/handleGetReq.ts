@@ -10,6 +10,15 @@ const getCache = new NodeCache({ stdTTL: 60, checkperiod: 60 });
 
 require("dotenv").config();
 
+
+function checkDates(indate: string, outdate: string): boolean {
+    const date1 = new Date(indate);
+    const date2 = new Date(outdate);
+    const diffTime = Math.abs(date2.getTime() - date1.getTime());
+    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+    return (diffDays <= 90 && date1 < date2);
+}
+
 export async function handleGetReq(req: Request, res: Response) {
     try {
 
@@ -44,6 +53,9 @@ export async function handleGetReq(req: Request, res: Response) {
         }
         else if (!broker_id) {
             return res.status(400).send({ status: false, message: ERROR.BROKER_ID_NOT_FOUND });
+        }
+        else if (!checkDates(start_date as string, end_date as string)) {
+            return res.status(400).send({ status: false, message: ERROR.DATE_NOT_IN_VALID_RANGE });
         }
         const request = `/v1/volume/broker/daily?start_date=${start_date}&end_date=${end_date}&broker_id=${broker_id}`;
         const localAccount = new LocalAccount(accountId, orderlyPrivateKey, orderlyPublicKey, tradingPublicKey, tradingSecretKey);
